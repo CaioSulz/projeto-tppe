@@ -42,12 +42,3 @@ Sistema de Gerenciamento de Locatarios de Carros.
 
 *  http://localhost:8080
 
-## Como executar os testes e o linter
-
-1. **Execute os testes:**
-   ```bash
-   make docker-test
-
-2. **Execute o linter:**
-   ```bash
-   make docker-lint

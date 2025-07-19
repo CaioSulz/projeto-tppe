@@ -151,6 +151,7 @@ public class PasseioController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Veículo de passeio excluído com sucesso"),
         @ApiResponse(responseCode = "404", description = "Veículo de passeio não encontrado"),
+        @ApiResponse(responseCode = "409", description = "Veículo possui reservas associadas"),
         @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     public ResponseEntity<?> excluir(@PathVariable Long id) {
@@ -158,7 +159,12 @@ public class PasseioController {
             return ResponseEntity.notFound().build();
         }
         
-        passeioService.excluir(id);
-        return ResponseEntity.noContent().build();
+        try {
+            passeioService.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("Não é possível excluir este veículo pois ele possui reservas associadas");
+        }
     }
 }

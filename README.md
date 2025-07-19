@@ -32,13 +32,32 @@ Sistema de Gerenciamento de Locatarios de Carros.
 1. **Clone o repositório**
    ```bash
    git clone https://github.com/CaioSulz/projeto-tppe.git
+   cd projeto-tppe
+   ```
 
 2. **Build dos containers**
 
     ```bash
     docker-compose up --build
+    ```
 
-3. **Acesse a aplicação:**
+3. **Acesse as aplicações:**
 
-*  http://localhost:8080
+   - **Frontend (Interface Principal)**: http://localhost:3000
+   - **Backend API**: http://localhost:8080
+   - **Documentação da API (Swagger)**: http://localhost:8080/swagger-ui.html
+
+## Comandos Úteis
+
+```bash
+# Executar em background
+docker-compose up -d
+
+# Parar todos os containers
+docker-compose down
+
+# Rebuild apenas um serviço específico
+docker-compose up --build app
+docker-compose up --build frontend
+
 

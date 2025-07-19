@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <!-- Suppress certain checks for generated code -->
+    <suppress checks=".*" files=".*[\\/]target[\\/].*"/>
+    
+    <!-- Suppress checks for test files that might have different conventions -->
+    <suppress checks="MagicNumber" files=".*Test\.java"/>
+    <suppress checks="DesignForExtension" files=".*Test\.java"/>
+    
+    <!-- Suppress checks for Spring Boot main class -->
+    <suppress checks="HideUtilityClassConstructor" files=".*Application\.java"/>
+    
+    <!-- Suppress checks for DTOs and entities that might have many parameters -->
+    <suppress checks="ParameterNumber" files=".*DTO\.java"/>
+    <suppress checks="ParameterNumber" files=".*Entity\.java"/>
+    
+    <!-- Suppress visibility modifier checks for JPA entities -->
+    <suppress checks="VisibilityModifier" files=".*Entity\.java"/>
+    <suppress checks="VisibilityModifier" files=".*\.java" message="Variable '.*' should be private and have accessor methods\."/>
+</suppressions>

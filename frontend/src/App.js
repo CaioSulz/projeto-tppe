@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CadastroForm from './components/CadastroForm';
 import CadastroVeiculoForm from './components/CadastroVeiculoForm';
 import CadastroReservaForm from './components/CadastroReservaForm';
+import GerenciamentoPessoas from './components/GerenciamentoPessoas';
 import './index.css';
 
 function App() {
@@ -24,6 +25,16 @@ function App() {
                 }`}
               >
                 Cadastro de Pessoas
+              </button>
+              <button
+                onClick={() => setActiveSection('gerenciar-pessoas')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  activeSection === 'gerenciar-pessoas'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                Gerenciar Pessoas
               </button>
               <button
                 onClick={() => setActiveSection('veiculos')}
@@ -53,6 +64,7 @@ function App() {
       {/* Conteúdo principal */}
       <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         {activeSection === 'pessoas' && <CadastroForm />}
+        {activeSection === 'gerenciar-pessoas' && <GerenciamentoPessoas />}
         {activeSection === 'veiculos' && <CadastroVeiculoForm />}
         {activeSection === 'reservas' && <CadastroReservaForm />}
       </main>

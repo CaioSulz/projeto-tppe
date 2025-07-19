@@ -153,6 +153,7 @@ public class PessoaFisicaController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Pessoa física excluída com sucesso"),
         @ApiResponse(responseCode = "404", description = "Pessoa física não encontrada"),
+        @ApiResponse(responseCode = "409", description = "Pessoa possui reservas associadas"),
         @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     public ResponseEntity<?> excluir(@PathVariable Long id) {
@@ -160,7 +161,12 @@ public class PessoaFisicaController {
             return ResponseEntity.notFound().build();
         }
         
-        pessoaFisicaService.excluir(id);
-        return ResponseEntity.noContent().build();
+        try {
+            pessoaFisicaService.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("Não é possível excluir esta pessoa pois ela possui reservas associadas");
+        }
     }
 }

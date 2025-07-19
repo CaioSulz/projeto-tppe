@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - app
+    networks:
+      - rede-interna
+
   app:
     build: .
     ports:
@@ -26,6 +35,21 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - rede-interna
+  
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/tppe
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=123456
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    command: mvn test -Dtest=PessoaFisicaControllerTest,PessoaJuridicaControllerTest -Dmaven.test.failure.ignore=true -Dsurefire.useFile=false
     networks:
       - rede-interna
 

@@ -4,6 +4,7 @@ import CadastroVeiculoForm from './components/CadastroVeiculoForm';
 import CadastroReservaForm from './components/CadastroReservaForm';
 import GerenciamentoPessoas from './components/GerenciamentoPessoas';
 import GerenciamentoVeiculos from './components/GerenciamentoVeiculos';
+import GerenciamentoReservas from './components/GerenciamentoReservas';
 import './index.css';
 
 function App() {
@@ -67,6 +68,16 @@ function App() {
               >
                 Nova Reserva
               </button>
+              <button
+                onClick={() => setActiveSection('gerenciar-reservas')}
+                className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                  activeSection === 'gerenciar-reservas'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-700'
+                }`}
+              >
+                Gerenciar Reservas
+              </button>
             </nav>
           </div>
         </div>
@@ -79,6 +90,7 @@ function App() {
         {activeSection === 'veiculos' && <CadastroVeiculoForm />}
         {activeSection === 'gerenciar-veiculos' && <GerenciamentoVeiculos />}
         {activeSection === 'reservas' && <CadastroReservaForm />}
+        {activeSection === 'gerenciar-reservas' && <GerenciamentoReservas />}
       </main>
     </div>
   );

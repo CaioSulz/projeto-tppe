@@ -279,6 +279,7 @@ public class ReservaController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Reserva excluída com sucesso"),
         @ApiResponse(responseCode = "404", description = "Reserva não encontrada"),
+        @ApiResponse(responseCode = "409", description = "Reserva não pode ser excluída"),
         @ApiResponse(responseCode = "500", description = "Erro interno no servidor")
     })
     public ResponseEntity<?> excluir(@PathVariable Long id) {
@@ -286,7 +287,12 @@ public class ReservaController {
             return ResponseEntity.notFound().build();
         }
         
-        reservaService.excluir(id);
-        return ResponseEntity.noContent().build();
+        try {
+            reservaService.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("Não é possível excluir esta reserva");
+        }
     }
 }

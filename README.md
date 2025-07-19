@@ -60,4 +60,29 @@ docker-compose down
 docker-compose up --build app
 docker-compose up --build frontend
 
+## Análise de Código (Lint)
+
+O projeto possui ferramentas de análise de código configuradas:
+
+```bash
+# Executar todas as análises de código
+mvn verify
+
+# Executar apenas Checkstyle (estilo de código)
+mvn checkstyle:check
+
+# Executar apenas SpotBugs (detecção de bugs)
+mvn spotbugs:check
+
+# Executar apenas PMD (análise de código)
+mvn pmd:check
+
+# Gerar relatórios de análise
+mvn checkstyle:checkstyle spotbugs:spotbugs pmd:pmd
+
+# Ver relatórios gerados
+# Checkstyle: target/site/checkstyle.html
+# SpotBugs: target/spotbugsXml.xml
+# PMD: target/site/pmd.html
+
 

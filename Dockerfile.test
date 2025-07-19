@@ -1,0 +1,15 @@
+# Dockerfile para testes
+FROM maven:3.9.6-eclipse-temurin-21
+
+# Copia o código-fonte e o pom.xml
+COPY src /app/src
+COPY pom.xml /app
+
+WORKDIR /app
+
+# Instala as dependências sem pular os testes
+# (não usa -DskipTests para permitir execução dos testes)
+RUN mvn dependency:go-offline
+
+# O comando para execução será fornecido pelo docker-compose.yml
+CMD ["mvn", "test"]
